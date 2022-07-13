@@ -15,8 +15,8 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Instant moment;
+    private Integer orderstatus;
 
     @ManyToOne
     @JoinColumn(name = "clientId")
@@ -24,9 +24,10 @@ public class Order implements Serializable {
 
     public Order(){}
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderstatus(orderStatus);
         this.client = client;
     }
 
@@ -44,6 +45,17 @@ public class Order implements Serializable {
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderstatus);
+    }
+
+    public void setOrderstatus(OrderStatus orderStatus) {
+        if(orderStatus != null){
+            this.orderstatus = orderStatus.getCode();
+        }
+
     }
 
     public User getClient() {
