@@ -1,9 +1,7 @@
 package com.educandoweb.webservices.services;
 
 import com.educandoweb.webservices.entities.Order;
-import com.educandoweb.webservices.entities.User;
 import com.educandoweb.webservices.repositories.OrderRepository;
-import com.educandoweb.webservices.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
