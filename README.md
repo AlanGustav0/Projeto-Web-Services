@@ -14,3 +14,5 @@
 • CRUD - Create, Retrieve, Update, Delete
 
 • Tratamento de exceções
+
+• Documentação da api com Swagger
