@@ -4,6 +4,7 @@ import com.educandoweb.webservices.entities.User;
 import com.educandoweb.webservices.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +45,11 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(user);
+    }
+
+    @DeleteMapping(value ="/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
