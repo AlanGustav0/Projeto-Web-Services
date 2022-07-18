@@ -28,7 +28,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("Api Cadastro de Produtos")
+                .title("Projeto web services")
                 .description("Exemplo de api rest de cadastro de produtos e usuário")
                 .version("1.0.0")
                 .build();
