@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,9 +44,14 @@ public class UserService {
     }
 
     public User updateUser(Long id,User user){
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity,user);
-        return userRepository.save(entity);
+        try{
+            User entity = userRepository.getReferenceById(id);
+            updateData(entity,user);
+            return userRepository.save(entity);
+        }catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
+
     }
 
     private void updateData(User entity, User user) {
