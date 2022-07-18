@@ -2,8 +2,11 @@ package com.educandoweb.webservices.services;
 
 import com.educandoweb.webservices.entities.User;
 import com.educandoweb.webservices.repositories.UserRepository;
+import com.educandoweb.webservices.resources.exceptions.DatabaseException;
 import com.educandoweb.webservices.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -30,7 +33,14 @@ public class UserService {
     }
 
     public void deleteUser(Long id){
-        userRepository.deleteById(id);
+        try{
+            userRepository.deleteById(id);
+        }catch(EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }catch(DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 
     public User updateUser(Long id,User user){
